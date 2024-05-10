@@ -1,0 +1,108 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Bootstrap Voice</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <style>
+    body {
+        background-color: #0A192F; /* Fondo azul oscuro */
+        color: #8892B0; /* Color de texto general en gris azulado para mejorar la legibilidad */
+    }
+    #message, #description {
+        margin-top: 20px;
+    }
+    #description {
+        background-color: #112240; /* Fondo azul muy oscuro para el texto descriptivo */
+        color: #CAD3E3; /* Color de texto claro para contraste */
+        padding: 20px;
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra más pronunciada para un efecto 3D suave */
+    }
+    /* Estilos para la etiqueta de honor */
+    .honor-badge {
+        margin-top: 40px;
+        padding: 15px;
+        background-color: #2CA6A4; /* Fondo cian para destacar, evocando innovación */
+        color: #0A192F; /* Texto en azul oscuro para contraste */
+        font-weight: bold; /* Texto en negrita */
+        border-radius: 15px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.4); /* Sombra para más profundidad */
+        font-size: 20px; /* Tamaño de fuente grande */
+    }
+</style>
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1>Winny Bootstrap Voice</h1> <!-- Título -->
+        <button id="start-btn" class="btn btn-primary mt-3">SpeakNow AI</button> <!-- Botón con estilo Bootstrap -->
+        <div id="message" class="mt-3"></div> <!-- Contenedor para el mensaje -->
+        <div id="description" class="mt-3 text-left">
+            <p>En la vanguardia de la innovación tecnológica, tenemos el placer de presentar SpeakNow AI, una aplicación en desarrollo diseñada para transformar la manera en que interactuamos con la inteligencia artificial. Con solo un clic, SpeakNow AI le brinda el poder de dialogar directamente con un avanzado sistema de IA, capaz de comprender y responder a sus consultas en tiempo real.</p>
+            <p>Nuestra interfaz intuitiva está diseñada para simplificar su experiencia: presione el botón y comience a hablar. Cada palabra que diga será transcrita en pantalla, permitiéndole ver en tiempo real cómo la IA comprende y procesa sus preguntas o comentarios. Ya sea que busque respuestas rápidas, consejos o simplemente desee explorar el potencial de interactuar con una inteligencia artificial, SpeakNow AI está aquí para abrirle las puertas a un mundo de posibilidades.</p>
+            <p>Manténgase atento a las actualizaciones y sea parte de esta emocionante jornada hacia el futuro de la comunicación digital.</p>
+        </div> <!-- Contenedor para el texto descriptivo -->
+        <!-- Etiqueta de honor para el desarrollador -->
+        <div class="honor-badge">
+            Desarrollador Luis Viña 🏆
+        </div>
+    </div>
+
+
+
+    <script>
+
+
+// Selecciona el botón con el ID 'start-btn' y añade un evento 'click' a él
+document.getElementById('start-btn').addEventListener('click', () => {
+    // Intenta obtener la clase SpeechRecognition del navegador. Si no está disponible,
+    // intenta obtener la versión con prefijo webkit (para compatibilidad con Chrome)
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    // Crea una nueva instancia de SpeechRecognition
+    const recognition = new SpeechRecognition();
+    
+    // Establece el idioma del reconocimiento de voz a español
+    recognition.lang = 'es-ES';
+    
+    // Inicia el proceso de reconocimiento de voz
+    recognition.start();
+    
+    // Este evento se dispara cuando el reconocimiento de voz devuelve un resultado
+    recognition.onresult = (event) => {
+        // Obtiene el resultado del reconocimiento de voz. El resultado es un objeto complejo,
+        // pero aquí solo nos interesa el texto transcrito, que se encuentra en event.results[0][0].transcript
+        const speechResult = event.results[0][0].transcript;
+        
+        let message = `Mensaje: ${speechResult}`;
+    
+    // Verifica si el mensaje contiene la palabra "vamos"
+    if (speechResult.includes("vamos")) {
+        message = "uno";
+    }
+    // Verifica si el mensaje contiene la palabra "borrar"
+    else if (speechResult.includes("borrar")) {
+        message = "dos";
+    }
+    
+    // Actualiza el contenido del elemento con ID 'message'
+    document.getElementById('message').textContent = message;
+};
+    
+    // Este evento se dispara si ocurre un error durante el proceso de reconocimiento de voz
+    recognition.onerror = (event) => {
+        // Imprime el error en la consola para depuración
+        console.error('Error en el reconocimiento de voz: ', event.error);
+    };
+});
+
+
+
+
+    </script>
+</body>
+</html>
